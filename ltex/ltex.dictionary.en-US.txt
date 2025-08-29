@@ -1,0 +1,6 @@
+Chuang
+qubit
+CNOT
+Leet
+Quickshell
+Hyprland
