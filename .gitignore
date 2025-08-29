@@ -1,0 +1,6 @@
+# .gitignore
+
+# /nvim
+*.json
+ltex/ltex.hiddenFalsePositives.en-US.txt
+
