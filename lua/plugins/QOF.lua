@@ -43,45 +43,6 @@ return {
 			},
 		},
 	},
-	-- yazi.nvim
-	-- yazi just inside neovim
-	{
-		"mikavilpas/yazi.nvim",
-		event = "VeryLazy",
-		dependencies = {
-			{ "folke/snacks.nvim", lazy = true },
-			"folke/which-key.nvim",
-		},
-		config = function()
-			require("which-key").add({ "<leader>y", group = "yazi" })
-		end,
-		keys = {
-			-- 👇 in this section, choose your own keymappings!
-			{
-				"<leader>yf",
-				mode = "n",
-				"<cmd>Yazi<cr>",
-				desc = "Open yazi at the current file",
-			},
-			{
-				-- Open in the current working directory
-				"<leader>yd",
-				"<cmd>Yazi cwd<cr>",
-				desc = "Open the file manager in nvim's working directory",
-			},
-			{
-				"<leader>yr",
-				"<cmd>Yazi toggle<cr>",
-				desc = "Resume the last yazi session",
-			},
-		},
-		opts = {
-			open_for_directories = false,
-			keymaps = {
-				show_help = "<f1>",
-			},
-		},
-	},
 	-- todo-comments.nvim
 	-- Highlight, list and search todo comments
 	{
@@ -126,6 +87,49 @@ return {
 				"<cmd>GrugFarWithIn<cr>",
 				mode = "v",
 				desc = "Search and replace selected",
+			},
+		},
+		-- trouble.nvim
+		-- efficiently view all the troubles
+		{
+			"folke/trouble.nvim",
+			lazy = false,
+			opts = {}, -- for default options, refer to the configuration section for custom setup.
+			cmd = "Trouble",
+			config = function()
+				require("which-key").add({ "<leader>x", group = "troubles" })
+			end,
+			keys = {
+				{
+					"<leader>xx",
+					"<cmd>Trouble diagnostics toggle<cr>",
+					desc = "Diagnostics (Trouble)",
+				},
+				{
+					"<leader>xX",
+					"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+					desc = "Buffer Diagnostics (Trouble)",
+				},
+				{
+					"<leader>cs",
+					"<cmd>Trouble symbols toggle focus=false<cr>",
+					desc = "Symbols (Trouble)",
+				},
+				{
+					"<leader>cl",
+					"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+					desc = "LSP Definitions / references / ... (Trouble)",
+				},
+				{
+					"<leader>xL",
+					"<cmd>Trouble loclist toggle<cr>",
+					desc = "Location List (Trouble)",
+				},
+				{
+					"<leader>xQ",
+					"<cmd>Trouble qflist toggle<cr>",
+					desc = "Quickfix List (Trouble)",
+				},
 			},
 		},
 	},
