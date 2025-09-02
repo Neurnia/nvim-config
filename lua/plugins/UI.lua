@@ -169,9 +169,10 @@ return {
 			"akinsho/toggleterm.nvim",
 			version = "*",
 			opts = {
-				open_mapping = [[<leader>t]],
+				open_mapping = [[<c-\>]],
 				size = vim.o.columns * 0.4,
 				direction = "vertical",
+				insert_mappings = false,
 			},
 		},
 	},

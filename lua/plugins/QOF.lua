@@ -94,40 +94,54 @@ return {
 		{
 			"folke/trouble.nvim",
 			lazy = false,
-			opts = {}, -- for default options, refer to the configuration section for custom setup.
-			cmd = "Trouble",
+			opts = {
+				focus = true,
+				win = { type = "float" },
+			},
 			config = function()
 				require("which-key").add({ "<leader>x", group = "troubles" })
 			end,
 			keys = {
 				{
 					"<leader>xx",
-					"<cmd>Trouble diagnostics toggle<cr>",
+					function()
+						require("trouble").toggle("diagnostics")
+					end,
 					desc = "Diagnostics (Trouble)",
 				},
 				{
 					"<leader>xX",
-					"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+					function()
+						require("trouble").toggle({ mode = "diagnostics", filter = { buf = 0 } })
+					end,
 					desc = "Buffer Diagnostics (Trouble)",
 				},
 				{
 					"<leader>cs",
-					"<cmd>Trouble symbols toggle focus=false<cr>",
+					function()
+						require("trouble").toggle({ mode = "symbols", focus = false })
+					end,
 					desc = "Symbols (Trouble)",
 				},
 				{
 					"<leader>cl",
-					"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-					desc = "LSP Definitions / references / ... (Trouble)",
+					function()
+						require("trouble").toggle({ mode = "lsp", focus = false, win = { position = "right" } })
+					end,
+					desc = "LSP Definitions / References / … (Trouble)",
 				},
 				{
 					"<leader>xL",
-					"<cmd>Trouble loclist toggle<cr>",
+					function()
+						require("trouble").toggle("loclist")
+					end,
 					desc = "Location List (Trouble)",
 				},
 				{
 					"<leader>xQ",
-					"<cmd>Trouble qflist toggle<cr>",
+					function()
+						require("trouble").toggle("qflist")
+					end,
 					desc = "Quickfix List (Trouble)",
 				},
 			},
