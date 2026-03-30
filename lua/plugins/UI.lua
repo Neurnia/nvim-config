@@ -162,18 +162,4 @@ return {
 		lazy = false,
 		opts = {},
 	},
-	-- toggleterm.nvim
-	-- toggle the terminal direcly in neovim
-	{
-		{
-			"akinsho/toggleterm.nvim",
-			version = "*",
-			opts = {
-				open_mapping = [[<c-\>]],
-				size = vim.o.columns * 0.4,
-				direction = "vertical",
-				insert_mappings = false,
-			},
-		},
-	},
 }
