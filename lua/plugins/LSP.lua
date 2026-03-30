@@ -28,7 +28,7 @@ return {
 	{
 		"mason-org/mason-lspconfig.nvim",
 		dependencies = {
-			"williamboman/mason.nvim",
+			"mason-org/mason.nvim",
 			"neovim/nvim-lspconfig",
 		},
 		opts = {
@@ -41,7 +41,9 @@ return {
 				"ltex",
 				"qmlls", -- for quickshell
 			},
-			automatic_enable = true,
+			automatic_enable = {
+				exclude = { "stylua" }, -- remain a formatter
+			},
 		},
 	},
 	-- nvim-lspconfig
@@ -135,7 +137,7 @@ return {
 
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = parsers,
-				highlight = { enale = true },
+				highlight = { enable = true },
 				indent = { enable = true },
 			})
 		end,
