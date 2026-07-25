@@ -99,7 +99,8 @@ return {
 			focus = true,
 			win = { type = "float" },
 		},
-		config = function()
+		config = function(_, opts)
+			require("trouble").setup(opts)
 			require("which-key").add({ "<leader>x", group = "troubles" })
 		end,
 		keys = {
