@@ -118,6 +118,8 @@ return {
 	-- enhanced treesitter experience
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
+		lazy = false,
 		build = ":TSUpdate",
 		config = function()
 			local parsers = {
@@ -135,10 +137,17 @@ return {
 				"qmljs", -- for quickshell
 			}
 
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = parsers,
-				highlight = { enable = true },
-				indent = { enable = true },
+			local treesitter = require("nvim-treesitter")
+			treesitter.install(parsers)
+
+			local group = vim.api.nvim_create_augroup("treesitter", { clear = true })
+			vim.api.nvim_create_autocmd("FileType", {
+				group = group,
+				callback = function(args)
+					if pcall(vim.treesitter.start, args.buf) then
+						vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					end
+				end,
 			})
 		end,
 	},
