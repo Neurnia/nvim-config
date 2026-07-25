@@ -39,7 +39,7 @@ return {
 				"clangd",
 				"texlab",
 				"ltex",
-				"qmlls", -- for quickshell
+				"qmlls",
 			},
 			automatic_enable = {
 				exclude = { "stylua" }, -- remain a formatter
@@ -88,6 +88,16 @@ return {
 				},
 			})
 
+			-- Prefer Arch's Qt-matched qmlls over Mason's bundled binary.
+			-- The latter currently requires libodbc.so.2, which is not otherwise
+			-- needed by this system.
+			local system_qmlls = "/usr/lib/qt6/bin/qmlls"
+			if vim.fn.executable(system_qmlls) == 1 then
+				vim.lsp.config("qmlls", {
+					cmd = { system_qmlls },
+				})
+			end
+
 			-- NOTE: set up other LSPs here
 		end,
 
@@ -134,7 +144,7 @@ return {
 				"vim",
 				"regex",
 				"bash",
-				"qmljs", -- for quickshell
+				"qmljs",
 			}
 
 			local treesitter = require("nvim-treesitter")
