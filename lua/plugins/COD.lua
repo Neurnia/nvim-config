@@ -64,12 +64,19 @@ return {
 			vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 		end,
 	},
-	-- mason-conform
-	-- automatically download formatters in conform configs in mason
+	-- mason-tool-installer
+	-- automatically install formatters used by conform.nvim
 	{
-		"zapling/mason-conform.nvim",
-		dependencies = { "stevearc/conform.nvim" },
-		opts = {},
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		dependencies = { "mason-org/mason.nvim" },
+		opts = {
+			ensure_installed = {
+				"prettier",
+				"prettierd",
+				"stylua",
+				"taplo",
+			},
+		},
 	},
 	-- nvim-autopairs
 	-- autopair for multiple characters
