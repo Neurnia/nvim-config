@@ -11,7 +11,8 @@ return {
 		dependencies = {
 			{ "nvim-lua/plenary.nvim", lazy = true },
 		},
-		config = function()
+		config = function(_, opts)
+			require("yazi").setup(opts)
 			require("which-key").add({ "<leader>y", group = "yazi" })
 		end,
 		keys = {
