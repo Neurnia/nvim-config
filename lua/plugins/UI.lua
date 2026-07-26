@@ -2,27 +2,13 @@
 -- plugins related to UI
 
 return {
-	-- tokyonight.nvim
-	-- ui theme
-	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			require("tokyonight").setup({
-				style = "night",
-				transparent = true,
-			})
-			vim.cmd([[colorscheme tokyonight]])
-		end,
-	},
 	-- lualine.nvim
 	-- enhanced status bar
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
-			options = { theme = "tokyonight" },
+			options = { theme = "auto" },
 		},
 	},
 	-- indent-blankline.nvim
