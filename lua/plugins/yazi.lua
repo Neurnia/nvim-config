@@ -13,31 +13,28 @@ return {
 		},
 		config = function(_, opts)
 			require("yazi").setup(opts)
-			require("which-key").add({ "<leader>y", group = "yazi" })
+			require("which-key").add({ "<leader>e", group = "explorer" })
 		end,
 		keys = {
-			-- 👇 in this section, choose your own keymappings!
 			{
-				"<leader>yf",
+				"<leader>ee",
 				mode = { "n", "v" },
 				"<cmd>Yazi<cr>",
-				desc = "Open yazi at the current file",
+				desc = "Explore current file",
 			},
 			{
-				-- Open in the current working directory
-				"<leader>yd",
+				"<leader>ed",
 				"<cmd>Yazi cwd<cr>",
-				desc = "Open the file manager in nvim's working directory",
+				desc = "Explore workspace directory",
 			},
 			{
-				"<leader>yr",
+				"<leader>er",
 				"<cmd>Yazi toggle<cr>",
-				desc = "Resume the last yazi session",
+				desc = "Resume explorer",
 			},
 		},
 		---@type YaziConfig | {}
 		opts = {
-			-- if you want to open yazi instead of netrw, see below for more info
 			open_for_directories = false,
 			keymaps = {
 				show_help = "<f1>",
