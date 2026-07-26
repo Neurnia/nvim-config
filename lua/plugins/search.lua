@@ -1,34 +1,58 @@
--- nvim/lua/plugins/telescope.lua
--- telescope.nvim
--- an extrmely powerful fuzzy finder for neovim
+-- nvim/lua/plugins/search.lua
 return {
-	-- the main telescope
+	-- fzf-lua
+	-- fuzzy finding for files, text, buffers, and Neovim features
 	{
-		"nvim-telescope/telescope.nvim",
-		version = "*",
+		"ibhagwan/fzf-lua",
+		dependencies = { "folke/which-key.nvim" },
+		opts = {},
+		config = function(_, opts)
+			require("fzf-lua").setup(opts)
+			require("which-key").add({ "<leader>f", group = "find" })
+		end,
+		keys = {
+			{ "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Find files" },
+			{ "<leader>fg", "<cmd>FzfLua live_grep<cr>", desc = "Live grep" },
+			{ "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Find buffers" },
+			{ "<leader>fh", "<cmd>FzfLua helptags<cr>", desc = "Help tags" },
+			{ "<leader>fp", "<cmd>FzfLua builtin<cr>", desc = "FzfLua pickers" },
+			{ "<leader>fr", "<cmd>FzfLua resume<cr>", desc = "Resume last picker" },
+			{ "<leader>ft", "<cmd>TodoFzfLua<cr>", desc = "Find todos" },
+		},
+	},
+	-- neovim-project
+	-- project discovery, switching, and per-project sessions
+	{
+		"coffebar/neovim-project",
+		lazy = false,
+		opts = {
+			projects = {
+				"~/Project/*",
+				"~/.config/nvim",
+				"~/.config/quickshell",
+				"~/.local/share/chezmoi",
+			},
+			last_session_on_startup = false,
+			per_branch_sessions = false,
+			picker = {
+				type = "fzf-lua",
+				preview = {
+					enabled = true,
+					git_status = true,
+					git_fetch = false,
+				},
+			},
+		},
+		init = function()
+			vim.opt.sessionoptions:append("globals")
+		end,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"folke/which-key.nvim",
+			"ibhagwan/fzf-lua",
+			"Shatur/neovim-session-manager",
 		},
-		config = function()
-			require("telescope").setup({})
-
-			local builtin = require("telescope.builtin")
-			require("which-key").add({ "<leader>f", group = "telescope pickers" })
-			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
-			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
-			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-			vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Telescope todo list" })
-		end,
-	},
-	-- telescope frequency plugin
-	{
-		"nvim-telescope/telescope-frecency.nvim",
-		-- install the latest stable version
-		version = "*",
-		config = function()
-			require("telescope").load_extension("frecency")
-		end,
+		keys = {
+			{ "<leader>fw", "<cmd>NeovimProjectDiscover<cr>", desc = "Find project workspace" },
+		},
 	},
 }
