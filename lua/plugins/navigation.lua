@@ -1,4 +1,6 @@
--- nvim/lua/plugins/search.lua
+-- nvim/lua/plugins/navigation.lua
+-- plugins for searching, jumping, projects, and files
+
 return {
 	-- fzf-lua
 	-- fuzzy finding for files, text, buffers, and Neovim features

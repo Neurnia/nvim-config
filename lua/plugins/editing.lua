@@ -1,5 +1,5 @@
--- nvim/lua/plugins/COD.lua
--- plugins that directly related to code(insert mode)
+-- nvim/lua/plugins/editing.lua
+-- plugins related to editing text and code
 
 return {
 	-- conform.nvim

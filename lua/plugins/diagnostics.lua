@@ -1,5 +1,5 @@
--- nvim/lua/plugins/QOF.lua
--- plugins related to quality of life
+-- nvim/lua/plugins/diagnostics.lua
+-- plugins for diagnostics and code annotations
 
 return {
 	-- flash.nvim
