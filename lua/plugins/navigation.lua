@@ -22,11 +22,9 @@ return {
 	-- fuzzy finding for files, text, buffers, and Neovim features
 	{
 		"ibhagwan/fzf-lua",
-		dependencies = { "folke/which-key.nvim" },
 		opts = {},
 		config = function(_, opts)
 			require("fzf-lua").setup(opts)
-			require("which-key").add({ "<leader>f", group = "find" })
 		end,
 		keys = {
 			{ "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Find files" },
@@ -84,7 +82,6 @@ return {
 		},
 		config = function(_, opts)
 			require("yazi").setup(opts)
-			require("which-key").add({ "<leader>e", group = "explorer" })
 		end,
 		keys = {
 			{

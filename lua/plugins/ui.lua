@@ -7,16 +7,24 @@ return {
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
-		config = function()
-			local map = require("which-key")
-
-			map.add({
-				{ "<leader>c", group = "codes" },
+		opts = {
+			spec = {
+				{
+					"<leader>b",
+					group = "buffers",
+					expand = function()
+						return require("which-key.extras").expand.buf()
+					end,
+				},
+				{ "<leader>c", group = "code" },
+				{ "<leader>e", group = "explorer" },
+				{ "<leader>f", group = "find" },
 				{ "<leader>g", group = "git" },
-				{ "<leader>s", group = "surrounds" },
-				{ "<leader>w", group = "window" },
-			})
-		end,
+				{ "<leader>s", group = "surround" },
+				{ "<leader>w", group = "windows" },
+				{ "<leader>x", group = "diagnostics" },
+			},
+		},
 		keys = {
 			{
 				"<leader>?",
@@ -55,26 +63,18 @@ return {
 	{
 		"akinsho/bufferline.nvim",
 		version = "*",
+		lazy = false,
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
-			"folke/which-key.nvim",
 		},
 		config = function()
 			require("bufferline").setup({})
-			-- numerical key to buffer mappings by which-key
-			require("which-key").add({
-				"<leader>b",
-				group = "buffers",
-				expand = function()
-					return require("which-key.extras").expand.buf()
-				end,
-			})
-
-			-- customized keymap
-			vim.keymap.set("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
-			vim.keymap.set("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Prev buffer" })
-			vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Close buffer" })
 		end,
+		keys = {
+			{ "<Tab>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
+			{ "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Previous buffer" },
+			{ "<leader>bd", "<cmd>bdelete<cr>", desc = "Close buffer" },
+		},
 	},
 	-- noice.nvim
 	-- new ui for messages, cmdline and popupmenu

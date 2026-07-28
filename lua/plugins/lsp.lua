@@ -60,6 +60,23 @@ return {
 				virtual_lines = { current_line = true },
 			})
 
+			local keymaps = vim.api.nvim_create_augroup("lsp_keymaps", { clear = true })
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = keymaps,
+				callback = function(args)
+					local function map(lhs, rhs, desc)
+						vim.keymap.set("n", lhs, rhs, { buffer = args.buf, desc = desc })
+					end
+
+					map("gd", vim.lsp.buf.definition, "Go to definition")
+					map("gD", vim.lsp.buf.declaration, "Go to declaration")
+					-- map("gi", vim.lsp.buf.implementation, "Go to implementation")
+					-- map("gr", vim.lsp.buf.references, "Show references")
+					map("K", vim.lsp.buf.hover, "Hover documentation")
+					map("<leader>cr", vim.lsp.buf.rename, "Rename symbol")
+				end,
+			})
+
 			-- NOTE: special settings for LSPs
 
 			-- lua_ls for lua
@@ -100,16 +117,6 @@ return {
 
 			-- NOTE: set up other LSPs here
 		end,
-
-		-- lsp keymaps
-		keys = {
-			{ "gd", vim.lsp.buf.definition, desc = "Go to Definition" },
-			{ "gD", vim.lsp.buf.declaration, desc = "Go to Declaration" },
-			-- { "gi", vim.lsp.buf.implementation, desc = "Go to Implementation" },
-			-- { "gr", vim.lsp.buf.references, desc = "Show References" },
-			{ "K", vim.lsp.buf.hover, desc = "Hover Documentation" },
-			{ "<leader>cr", vim.lsp.buf.rename, desc = "Rename Symbol" },
-		},
 	},
 	-- lazydev.nvim
 	-- add VIMRUNTIME library and other 3rd party libraries to lua_ls

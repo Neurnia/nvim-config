@@ -19,12 +19,15 @@ return {
 			signs_staged_enable = true,
 			signcolumn = true,
 			numhl = true,
-			on_attach = function()
-				-- keymaps
+			on_attach = function(bufnr)
 				local gitsigns = require("gitsigns")
-				vim.keymap.set("n", "<leader>gb", gitsigns.blame_line, { desc = "Git blame line" })
-				vim.keymap.set("n", "<leader>gh", gitsigns.preview_hunk_inline, { desc = "Git preview hunk" })
-				vim.keymap.set("n", "<leader>gs", gitsigns.stage_hunk, { desc = "Toggle git stage hunk" })
+				local function map(lhs, rhs, desc)
+					vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })
+				end
+
+				map("<leader>gb", gitsigns.blame_line, "Git blame line")
+				map("<leader>gh", gitsigns.preview_hunk_inline, "Git preview hunk")
+				map("<leader>gs", gitsigns.stage_hunk, "Toggle git stage hunk")
 			end,
 		},
 	},
@@ -61,11 +64,9 @@ return {
 					gitsigns = true,
 				},
 			}
-
-			vim.keymap.set("n", "<leader>gd", "<cmd>Diff review HEAD<cr>", {
-				silent = true,
-				desc = "Review git changes",
-			})
 		end,
+		keys = {
+			{ "<leader>gd", "<cmd>Diff review HEAD<cr>", desc = "Review git changes" },
+		},
 	},
 }
