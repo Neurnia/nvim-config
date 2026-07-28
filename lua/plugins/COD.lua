@@ -6,7 +6,7 @@ return {
 	-- code formatter
 	{
 		"stevearc/conform.nvim",
-		dependencies = { "williamboman/mason.nvim" },
+		dependencies = { "mason-org/mason.nvim" },
 		event = { "BufReadPost" },
 		cmd = { "ConformInfo" },
 		keys = {
