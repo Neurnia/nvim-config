@@ -103,4 +103,26 @@ return {
 			},
 		},
 	},
+	-- grug-far.nvim
+	-- find and replace plugin for neovim
+	{
+		"MagicDuck/grug-far.nvim",
+		dependencies = "nvim-tree/nvim-web-devicons",
+		opts = {},
+		-- keymaps for grug-far
+		keys = {
+			{
+				"<leader>cR",
+				"<cmd>GrugFar<cr>",
+				mode = "n",
+				desc = "Search and replace",
+			},
+			{
+				"<leader>cR",
+				"<cmd>GrugFarWithIn<cr>",
+				mode = "v",
+				desc = "Search and replace selected",
+			},
+		},
+	},
 }

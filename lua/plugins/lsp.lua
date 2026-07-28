@@ -124,42 +124,27 @@ return {
 			},
 		},
 	},
-	-- nvim-treesitter
-	-- enhanced treesitter experience
+	-- actions-preview.nvim
+	-- a brand new ui for code actions
 	{
-		"nvim-treesitter/nvim-treesitter",
-		branch = "main",
-		lazy = false,
-		build = ":TSUpdate",
-		config = function()
-			local parsers = {
-				"c",
-				"cpp",
-				"lua",
-				"python",
-				"markdown",
-				"markdown_inline",
-				"latex",
-				"html",
-				"vim",
-				"regex",
-				"bash",
-				"qmljs",
-				"diff",
-			}
-
-			local treesitter = require("nvim-treesitter")
-			treesitter.install(parsers)
-
-			local group = vim.api.nvim_create_augroup("treesitter", { clear = true })
-			vim.api.nvim_create_autocmd("FileType", {
-				group = group,
-				callback = function(args)
-					if pcall(vim.treesitter.start, args.buf) then
-						vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-					end
+		"aznhe21/actions-preview.nvim",
+		dependencies = { "MunifTanjim/nui.nvim" },
+		opts = {
+			backend = { "nui" },
+			diff = {
+				algorithm = "patience",
+				ignore_whitespace = true,
+			},
+		},
+		keys = {
+			{
+				"<leader>ca",
+				function()
+					require("actions-preview").code_actions()
 				end,
-			})
-		end,
+				mode = { "n", "v" },
+				desc = "Show code actions ",
+			},
+		},
 	},
 }

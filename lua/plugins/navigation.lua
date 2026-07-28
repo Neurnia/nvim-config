@@ -2,6 +2,22 @@
 -- plugins for searching, jumping, projects, and files
 
 return {
+	-- flash.nvim
+	-- smart jump
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		---@type Flash.Config
+		opts = { modes = { search = { enabled = true } } },
+		-- stylua: ignore
+		keys = {
+			{ "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+			{ "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+			{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+			{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+			{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+		},
+	},
 	-- fzf-lua
 	-- fuzzy finding for files, text, buffers, and Neovim features
 	{
@@ -55,6 +71,45 @@ return {
 		},
 		keys = {
 			{ "<leader>fw", "<cmd>NeovimProjectDiscover<cr>", desc = "Find project workspace" },
+		},
+	},
+	-- yazi.nvim
+	-- yazi inside neovim
+	{
+		"mikavilpas/yazi.nvim",
+		version = "*", -- use the latest stable version
+		event = "VeryLazy",
+		dependencies = {
+			{ "nvim-lua/plenary.nvim", lazy = true },
+		},
+		config = function(_, opts)
+			require("yazi").setup(opts)
+			require("which-key").add({ "<leader>e", group = "explorer" })
+		end,
+		keys = {
+			{
+				"<leader>ee",
+				mode = { "n", "v" },
+				"<cmd>Yazi<cr>",
+				desc = "Explore current file",
+			},
+			{
+				"<leader>ed",
+				"<cmd>Yazi cwd<cr>",
+				desc = "Explore workspace directory",
+			},
+			{
+				"<leader>er",
+				"<cmd>Yazi toggle<cr>",
+				desc = "Resume explorer",
+			},
+		},
+		---@type YaziConfig | {}
+		opts = {
+			open_for_directories = false,
+			keymaps = {
+				show_help = "<f1>",
+			},
 		},
 	},
 }

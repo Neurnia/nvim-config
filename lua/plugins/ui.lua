@@ -2,6 +2,31 @@
 -- plugins related to UI
 
 return {
+	-- which-key.nvim
+	-- that famous plugin
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		config = function()
+			local map = require("which-key")
+
+			map.add({
+				{ "<leader>c", group = "codes" },
+				{ "<leader>g", group = "git" },
+				{ "<leader>s", group = "surrounds" },
+				{ "<leader>w", group = "window" },
+			})
+		end,
+		keys = {
+			{
+				"<leader>?",
+				function()
+					require("which-key").show({ global = false })
+				end,
+				desc = "Buffer Local Keymaps (which-key)",
+			},
+		},
+	},
 	-- lualine.nvim
 	-- enhanced status bar
 	{
@@ -22,29 +47,6 @@ return {
 			scope = {
 				show_exact_scope = true,
 				highlight = { "Function", "Label" },
-			},
-		},
-	},
-	-- actions-preview.nvim
-	-- a brand new ui for code actions
-	{
-		"aznhe21/actions-preview.nvim",
-		dependencies = { "MunifTanjim/nui.nvim" },
-		opts = {
-			backend = { "nui" },
-			diff = {
-				algorithm = "patience",
-				ignore_whitespace = true,
-			},
-		},
-		keys = {
-			{
-				"<leader>ca",
-				function()
-					require("actions-preview").code_actions()
-				end,
-				mode = { "n", "v" },
-				desc = "Show code actions ",
 			},
 		},
 	},
