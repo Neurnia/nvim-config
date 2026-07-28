@@ -145,6 +145,7 @@ return {
 				"regex",
 				"bash",
 				"qmljs",
+				"diff",
 			}
 
 			local treesitter = require("nvim-treesitter")

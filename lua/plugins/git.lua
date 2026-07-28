@@ -2,6 +2,15 @@
 -- plugins directly related to git
 
 return {
+	-- fzf-lua
+	-- searchable git history
+	{
+		"ibhagwan/fzf-lua",
+		keys = {
+			{ "<leader>gl", "<cmd>FzfLua git_commits<cr>", desc = "Git log" },
+			{ "<leader>gL", "<cmd>FzfLua git_bcommits<cr>", desc = "Git log current file" },
+		},
+	},
 	-- gitsigns.nvim
 	-- the one-and-only git-related plugin people must install
 	{
@@ -41,21 +50,22 @@ return {
 			{ "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
 		},
 	},
-	-- diffview.nvim
-	-- Single tabpage interface for easily cycling through diffs
+	-- diffs.nvim
+	-- simple, syntax-aware diff views
 	{
-		"sindrets/diffview.nvim",
-		opts = {},
-		config = function()
-			-- add custom key to call diffview
-			vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { silent = true, desc = "Git diffview" })
-			vim.keymap.set("n", "<leader>gq", "<cmd>DiffviewClose<cr>", { silent = true, desc = "Close diffview" })
-			vim.keymap.set(
-				"n",
-				"<leader>gf",
-				"<cmd>DiffviewFileHistory<cr>",
-				{ silent = true, desc = "Git file history diffview" }
-			)
+		"barrettruth/diffs.nvim",
+		lazy = false,
+		init = function()
+			vim.g.diffs = {
+				integrations = {
+					gitsigns = true,
+				},
+			}
+
+			vim.keymap.set("n", "<leader>gd", "<cmd>Diff review HEAD<cr>", {
+				silent = true,
+				desc = "Review git changes",
+			})
 		end,
 	},
 }
