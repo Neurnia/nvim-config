@@ -22,6 +22,7 @@ return {
 				"vim",
 				"regex",
 				"bash",
+				"gotmpl",
 				"qmljs",
 				"diff",
 			}
