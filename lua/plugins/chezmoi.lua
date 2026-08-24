@@ -8,6 +8,8 @@ return {
 		lazy = false,
 		opts = {
 			apply = { on_save = false },
+			-- buffer-local keymaps in chezmoi source buffers (localleader = "\")
+			keymaps = { enabled = true },
 		},
 	},
 }
