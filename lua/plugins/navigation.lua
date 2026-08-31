@@ -43,7 +43,7 @@ return {
 		lazy = false,
 		opts = {
 			projects = {
-				"~/Project/*",
+				"~/Projects/*",
 				"~/.config/nvim",
 				"~/.config/quickshell",
 				"~/.local/share/chezmoi",
