@@ -38,11 +38,11 @@ return {
 				"lua_ls",
 				"clangd",
 				"texlab",
-				"ltex",
+				"ltex_plus",
 				"qmlls",
 			},
 			automatic_enable = {
-				exclude = { "stylua" }, -- remain a formatter
+				exclude = { "stylua" },
 			},
 		},
 	},
@@ -91,16 +91,38 @@ return {
 				},
 			})
 
-			-- ltex for the english language
-			vim.lsp.config("ltex", {
+			-- TexLab for LaTeX intelligence. Cope with VimTeX
+			vim.lsp.config("texlab", {
+				settings = {
+					texlab = {
+						build = {
+							onSave = false,
+							forwardSearchAfter = false,
+						},
+						chktex = {
+							onOpenAndSave = true,
+							onEdit = false,
+						},
+						latexFormatter = "latexindent",
+						latexindent = {
+							modifyLineBreaks = false,
+						},
+					},
+				},
+			})
+
+			-- LTeX+ for the English language
+			vim.lsp.config("ltex_plus", {
 				on_attach = function()
 					require("ltex_extra").setup({
 						path = vim.fn.stdpath("config") .. "/ltex",
+						load_langs = { "en-US" },
 					})
 				end,
 				settings = {
 					ltex = {
 						language = "en-US",
+						checkFrequency = "save",
 					},
 				},
 			})

@@ -27,6 +27,8 @@ return {
 			-- Define your formatters
 			formatters_by_ft = {
 				markdown = { "prettierd" },
+				tex = { "latexindent" },
+				plaintex = { "latexindent" },
 
 				-- the config filetypes
 				yaml = { "prettierd" },
@@ -43,8 +45,15 @@ return {
 			default_format_opts = {
 				lsp_format = "fallback",
 			},
-			-- Set up format-on-save
-			format_on_save = { timeout_ms = 500 },
+			format_on_save = function(bufnr)
+				local ft = vim.bo[bufnr].filetype
+				-- Manual formatting for LaTex
+				if ft == "tex" or ft == "plaintex" or ft == "bib" then
+					return nil
+				end
+
+				return { timeout_ms = 500 }
+			end,
 			-- Customize formatters
 			formatters = {
 				taplo = {

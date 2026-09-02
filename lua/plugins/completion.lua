@@ -141,6 +141,8 @@ return {
 				default = function()
 					if vim.bo.filetype == "markdown" then
 						return { "latex_symbols", "emoji", "dictionary", "path", "snippets", "buffer" }
+					elseif vim.tbl_contains({ "tex", "plaintex", "bib" }, vim.bo.filetype) then
+						return { "lsp", "snippets", "path", "dictionary", "buffer" }
 					else
 						return { "lazydev", "dictionary", "emoji", "lsp", "path", "snippets", "buffer" }
 					end

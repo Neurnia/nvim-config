@@ -34,6 +34,11 @@ return {
 			vim.api.nvim_create_autocmd("FileType", {
 				group = group,
 				callback = function(args)
+					-- Disable Tree-sitter for LaTeX buffer (let VimTeX syntax handle it)
+					if vim.bo[args.buf].filetype == "tex" then
+						return
+					end
+
 					if pcall(vim.treesitter.start, args.buf) then
 						vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 					end
